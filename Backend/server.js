@@ -34,6 +34,46 @@ app.post('/tasks',(req,res)=>{
     });
 });
 
+app.delete('/tasks/:id',(req,res)=>{
+    console.log('37:',req.params.id)
+
+    Todo.deleteOne({_id: req.params.id} ,(err,deleteObj)=>{
+        if (err) {
+            console.log('ERROR:',err);
+        } else {
+            deleteObj.deleteedCount === 1
+            res.json('Delete this todo successfully');
+            res.status(404).json('This todo is not found');
+            //console.log(deleteObj);
+
+        }
+    });
+});
+
+app.put('/tasks/:id',(req,res)=>{
+    //console.log('37:',req.params.id)
+
+    Todo.updateOne(
+        {_id: req.params.id},
+        {title: req.body.newtitle},
+        (err,updateObj) =>{
+        if (err) {
+            console.log('ERROR:',err);
+            res.status(400).json(err)
+        } else {
+            console.log(updateObj);
+
+            updateObj.modifiedcount === 1
+            res.json('Delete this todo successfully');
+            res.status(404).json('This todo is not found');
+            
+
+        }
+    });
+});
+
+
+
 app.listen(5000,()=>{
     console.log('SERVER IS WORKING...');
 })
