@@ -73,6 +73,40 @@ app.put('/tasks/:id',(req,res)=>{
 });
 
 
+/*app.get('/completed',(req,res)=>{
+    Todo.find({ isCompleted:true },(err,data)=>{
+        if (err) {
+            console.log('ERROR:',err);
+        } else {
+            res.json(data);
+            console.log(data);
+        }
+    });
+}); */
+
+/*app.get('/not_completed',(req,res)=>{
+    Todo.find({ isCompleted:false },(err,data)=>{
+        if (err) {
+            console.log('ERROR:',err);
+        } else {
+            res.json(data);
+            console.log(data);
+        }
+    });
+}); */
+
+//...........?key=value&key=value
+app.get('/filter',(req,res)=>{
+        console.log(req.query);
+    Todo.find({ isCompleted: req.query.isCompleted },(err,data)=>{
+        if (err) {
+            console.log('ERROR:',err);
+        } else {
+            res.json(data);
+        }
+    });
+});
+
 
 app.listen(5000,()=>{
     console.log('SERVER IS WORKING...');
